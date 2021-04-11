@@ -11,15 +11,15 @@ from mailmerge import MailMerge
 from datetime import date
 import sqlite3
 
-#establish connection to "beispiel.db"
+# establish connection to "beispiel.db"
 conn = sqlite3.connect("beispiel.db")
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
-#define template
+# define template
 template = "Beispiel.docx"
 
-#execute query
+# execute query
 c.execute("SELECT * FROM applicants")
 r = c.fetchone()
 r.keys()
@@ -27,8 +27,16 @@ r.keys()
 data = dict(zip(r.keys(), r))
 print(data)
 
+
+for k, v in data.items():
+    try:
+        data[k] = str(v).replace("\n", "")
+    except:
+        pass
+
+
 document = MailMerge(template)
-#document.get_merge_fields()
+# document.get_merge_fields()
 document.merge(**data)
 document.write("Beispiel-output.docx")
 
