@@ -17,7 +17,7 @@ conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
 # define template
-template = "Beispiel.docx"
+template = "beispiel.docx"
 
 # execute query
 c.execute("SELECT * FROM applicants")
@@ -38,6 +38,6 @@ for k, v in data.items():
 document = MailMerge(template)
 # document.get_merge_fields()
 document.merge(**data)
-document.write("Beispiel-output.docx")
+document.write("beispiel_output.docx")
 
 conn.close()
